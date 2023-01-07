@@ -1,0 +1,30 @@
+câu 1: 
+SELECT * FROM nhanvien where phg = 4
+câu 2: 
+SELECT * from nhanvien WHERE luong > 30000
+câu 3:
+SELECT * from nhanvien WHERE (luong > 30000 and phg =5 ) or (luong > 25000 and phg = 4)
+câu 4:
+SELECT concat(honv,' ', tenlot, ' ' , tennv) from nhanvien WHERE dchi LIKE '%HCM%'
+câu 5:
+SELECT concat(honv,' ', tenlot, ' ' , tennv) from nhanvien WHERE honv LIKE 'N%'
+câu 6:
+SELECT ngsinh, dchi from nhanvien WHERE honv = 'đinh' AND tenlot = 'bá' and tennv ='tiến'
+câu 7:
+select * from nhanvien WHERE year(ngsinh) >= 1960 and year(ngsinh) <= 1965
+câu 8:
+select *, year(ngsinh) as 'namsinh' from nhanvien 
+câu 9:
+select *, (year(CURRENT_DATE)-year(ngsinh)) as 'tuoi' from nhanvien 
+cau 10:
+SELECT tenphg, diadiem FROM phongban, diadiem_phg WHERE phongban.MAPHG=diadiem_phg.MAPHG GROUP by tenphg
+câu 11:
+SELECT tenphg, concat(honv,' ', tenlot,' ' ,tennv) as 'tentruongphong' FROM phongban, nhanvien WHERE nhanvien.MANV=phongban.TRPHG 
+câu 12:
+SELECT  concat(honv,' ', tenlot,' ' ,tennv) as 'tennv', dchi FROM phongban, nhanvien WHERE tenphg = 'nghiên cứu' AND nhanvien.PHG=phongban.MAPHG
+câu 13:
+SELECT tenda, tenphg, concat(honv,' ' , tenlot,' ', tennv) as 'tentrphg', ng_nhanchuc FROM nhanvien, phongban,dean WHERE phongban.MAPHG=dean.PHONG AND nhanvien.MANV=phongban.TRPHG AND dean.DDIEM_DA LIKE '%Hà Nội%'
+câu 14:
+câu 15:
+SELECT concat(nv.honv,' ', nv.tenlot,' ' ,nv.tennv) as 'tennv' , concat(ql.honv,' ', ql.tenlot,' ' ,ql.tennv) as ' tenql' FROM nhanvien nv, nhanvien ql WHERE nv.MA_NQL = ql.MANV 
+câu 16:

@@ -1,0 +1,45 @@
+1: 
+SELECT id, gpa from class_infor WHERE gpa > all(SELECT gpa from class_infor WHERE class = '65KHDL')
+2:
+3:
+SELECT class, (SELECT count(id) from class_infor WHERE sex = 'Nam'),
+ (SELECT count(id) from class_infor WHERE sex='Nu'),
+  (( SELECT AVG(gpa) from class_infor WHERE sex = 'Nam')-(SELECT AVG(gpa) from class_infor WHERE sex = 'Nu'))
+ from class_infor WHERE  
+(SELECT count(id) from class_infor WHERE sex = 'Nam')>(SELECT count(id) from class_infor WHERE sex='Nu') 
+and (( SELECT AVG(gpa) from class_infor WHERE sex = 'Nu')-(SELECT AVG(gpa) from class_infor WHERE sex = 'Nam')) >0
+GROUP by class
+4:
+5:
+SELECT id ,gpa from class_infor 
+WHERE class = '65KHMT' AND gpa>all(SELECT AVG(gpa) from class_infor WHERE sex ='Nu' and class like '%CSDL%')
+6:
+SELECT id, (math+phy+che),class from class_infor class, std_scores std WHERE class.id=std.std_id and 
+class = (SELECT class FROM class_infor,std_scores  WHERE (class_infor.id = std_scores.std_id) and class =(SELECT class FROM class_infor,std_scores WHERE (class_infor.id=std_scores.std_id)and  math is NOT null AND phy is NOT null and che is not null order by count(id) ASC limit 1) ORDER by (math+phy+che) ASC limit 1)
+ORDER by (math+phy+che) ASC limit 1
+8: 
+SELECT class.class, (SELECT count(std_id) FROM std_scores WHERE  math is not NULL 
+		AND phy is not NULL 
+		AND che is not NULL 
+		AND bio is not NULL 
+		AND lit is not NULL 
+		AND his is not NULL 
+		AND geo is not NULL 
+		AND vic is not NULL), (math+phy+che)/3 
+from class_infor class,std_scores std WHERE class.id=std.std_id and (SELECT count(std_id) FROM std_scores WHERE 
+            math is not NULL 
+		AND phy is not NULL 
+		AND che is not NULL 
+		AND bio is not NULL 
+		AND lit is not NULL 
+		AND his is not NULL 
+		AND geo is not NULL 
+		AND vic is not NULL)>5 AND
+     ((math+phy+che)/3 ) > (SELECT (math+phy+che)/3 FROM class_infor class, std_scores std WHERE class.id=std.std_id AND class.class ='66KHDL')
+9:
+10:SELECT class, (math+phy+che)/3 from class_infor class , std_scores std 
+WHERE class.id=std.std_id and
+AVG(gpa) > (SELECT avg(gpa) from std_scores,class_infor WHERE class_infor.id=std_scores.std_id AND class like '%CSDL%') AND
+(math+phy+che)/3 < (SELECT (math+phy+che)/3 from class_infor,std_scores WHERE class_infor.id=std_scores.std_id AND class like '%CSDL%')
+
+                                      
